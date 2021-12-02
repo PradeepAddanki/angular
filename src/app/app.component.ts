@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { QfcTypeRendererComponent } from './qfc-type-renderer/qfc-type-renderer.component';
 import { QfcDefinitionRendererComponent } from './qfc-definition-renderer/qfc-definition-renderer.component';
+import { CommentsRendererComponent } from './comments-renderer/comments-renderer.component';
+import { WorkflowActionRendererComponent } from './workflow-action-renderer/workflow-action-renderer.component';
 
 @Component({
   selector: 'app-root',
@@ -14,39 +16,139 @@ import { QfcDefinitionRendererComponent } from './qfc-definition-renderer/qfc-de
 export class AppComponent {
   gridApi;
   columnApi;
+  gridApi1;
+  columnApi1;
   gridOptions: GridOptions = {};
+  gridOptions1: GridOptions = {};
   qfcTypeInputArray = ['Email', 'Phone', 'Mobile'];
   qfcTypeSelected = '';
-  //qfcTypeBtnFlag = this.qfcTypeSelected ? true : false;
 
   columnDefs: ColDef[] = [
-    { field: 'make', checkboxSelection: true },
+    { field: 'BusinessDate' },
+    { field: 'Agregator' },
+    { field: 'SourceSystem' },
+    { field: 'ProductType1' },
+    { field: 'ProductType2' },
+    { field: 'ProductType3' },
+    { field: 'ClearedProductFlag', checkboxSelection: true },
     {
-      field: 'model',
+      field: 'QFCType',
       cellRendererFramework: QfcTypeRendererComponent,
     },
     {
-      field: 'price',
+      field: 'QFCDefinition',
       cellRendererFramework: QfcDefinitionRendererComponent,
+    },
+  ];
+  column: ColDef[] = [
+    { field: 'BusinessDate' },
+    { field: 'Agregator' },
+    { field: 'SourceSystem' },
+    { field: 'ProductType1' },
+    { field: 'ProductType2' },
+    { field: 'ProductType3' },
+    { field: 'ClearedProductFlag', checkboxSelection: true },
+    {
+      field: 'QFCType',
+    },
+    {
+      field: 'QFCDefinition',
+    },
+    {
+      field: 'Comments',
+      cellRendererFramework: CommentsRendererComponent,
+    },
+    {
+      field: 'WorkflowAction',
+      cellRendererFramework: WorkflowActionRendererComponent,
     },
   ];
 
   rowData = [
-    { make: '', model: 'Raajaa', price: 80000 },
-    { make: '', model: 'Ramaa', price: 90000 },
-    { make: '', model: 'Ramya', price: 87000 },
-  ];
-
-  column: ColDef[] = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+    },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+    },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+    },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+    },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+    },
   ];
 
   row = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+      Comments: '',
+      WorkflowAction: '',
+    },
+    {
+      BusinessDate: '2021-11-30',
+      Agregator: 'FACS',
+      SourceSystem: 'Intl Calypso',
+      ProductType1: 'FX Option',
+      ProductType2: 'Reverse Knockin USD Put',
+      ProductType3: '',
+      ClearedProductFlag: '',
+      QFCType: '',
+      QFCDefinition: '',
+      Comments: '',
+      WorkflowAction: '',
+    },
   ];
 
   //rowData: Observable<any[]>;
@@ -57,11 +159,18 @@ export class AppComponent {
     //     'https://www.ag-grid.com/example-assets/row-data.json'
     //   );
     this.gridOptions.rowHeight = 40;
+    this.gridOptions1.rowHeight = 120;
   }
 
-  OnGridReady(params) {
+  onGridReady(params) {
     this.gridApi = params.api;
     this.columnApi = params.colApi;
+    this.gridApi.setRowData(this.rowData);
+  }
+  onGridReady1(params) {
+    this.gridApi1 = params.api;
+    this.columnApi1 = params.colApi;
+    this.gridApi1.setRowData(this.row);
   }
 
   qfcTypes = [
